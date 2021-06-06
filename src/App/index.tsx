@@ -5,32 +5,15 @@ import React, {
   useRef,
   useState
 } from "react";
-import { v1 as uuid } from "uuid";
-import { Todo } from "../type";
+import { Todo, State } from "../type";
 import "./App.css";
-
-const todos: Todo[] = [
-  {
-    id: uuid(),
-    desc: "Learn React",
-    isComplete: true
-  },
-  {
-    id: uuid(),
-    desc: "Learn Redux",
-    isComplete: true
-  },
-  {
-    id: uuid(),
-    desc: "Learn Redux-ToolKit",
-    isComplete: false
-  }
-];
-
-const selectedTodoId = todos[0].id;
-const editedCount = 0;
+import { useDispatch, useSelector } from 'react-redux'
 
 const App = function() {
+  const dispatch = useDispatch()
+  const todos = useSelector((state: State) => state.todos)
+  const selectedTodoId = useSelector((state: State) => state.selectedTodo)
+  const editedCount = useSelector((state: State) => state.counter)
   const [newTodoInput, setNewTodoInput] = useState<string>("");
   const [editTodoInput, setEditTodoInput] = useState<string>("");
   const [isEditMode, setIsEditMode] = useState<boolean>(false);

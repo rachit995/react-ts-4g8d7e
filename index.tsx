@@ -2,25 +2,17 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import IApp from './src/App';
 import './style.css';
+import { Provider } from 'react-redux'
+import store from './src/redux-og'
 
 interface AppProps { }
-interface AppState {
-  name: string;
-}
 
-class App extends Component<AppProps, AppState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: 'React'
-    };
-  }
-
-  render() {
-    return (
+function App<AppProps>() {
+  return (
+    <Provider store={store}>
       <IApp />
-    );
-  }
+    </Provider>
+  );
 }
 
 render(<App />, document.getElementById('root'));

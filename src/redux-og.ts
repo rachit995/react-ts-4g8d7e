@@ -1,6 +1,9 @@
 import { Todo } from './type';
 import { v1 as uuid } from 'uuid';
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const CREATE_TODO = 'CREATE_TODO';
 const EDIT_TODO = 'EDIT_TODO';
@@ -170,7 +173,7 @@ const todosReducer = (
 
 type SelectTodoActionTypes = SelectTodoActionType;
 
-const selectedTodoReducer = (state = null, action: SelectTodoActionTypes) => {
+const selectedTodoReducer = (state = 0, action: SelectTodoActionTypes) => {
   switch (action.type) {
     case SELECT_TODO: {
       const {
@@ -210,4 +213,7 @@ const reducers = combineReducers({
   counter: counterReducer
 });
 
-export default createStore(reducers);
+export default createStore(
+  reducers,
+  composeWithDevTools(applyMiddleware(thunk, logger))
+);
