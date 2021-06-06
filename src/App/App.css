@@ -47,10 +47,10 @@ button {
   font-size: 16px;
   font-weight: 700;
   line-height: 25.92px;
-  margin-right: 8px;
   transition: all 0.1s ease-in;
   border: 4px rgb(249, 250, 251) solid;
   padding: 0.2rem 0.7rem;
+  margin: 10px 10px 0 0;
 }
 
 button:focus {
