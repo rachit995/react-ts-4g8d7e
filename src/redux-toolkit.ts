@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v1 as uuid } from 'uuid';
 import { Todo } from './type';
 
@@ -81,4 +81,36 @@ const selectedTodoSlice = createSlice({
     // since initialState is a primitive type, we cannot mutate it
     select: (state, { payload: { id } }: PayloadAction<{ id: string }>) => id
   }
+});
+
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: 0,
+  reducers: {},
+  extraReducers: {
+    [todoSlice.actions.create.type]: state => state + 1,
+    [todoSlice.actions.edit.type]: state => state + 1,
+    [todoSlice.actions.remove.type]: state => state + 1,
+    [todoSlice.actions.toggle.type]: state => state + 1,
+    [selectedTodoSlice.actions.select.type]: state => state + 1
+  }
+});
+
+export const {
+  create: createTodoActionCreator,
+  edit: editTodoActionCreator,
+  toggle: toggleTodoActionCreator,
+  remove: deleteTodoActionCreator
+} = todoSlice.actions;
+
+export const { select: selectTodoActionCreator } = selectedTodoSlice.actions;
+
+const reducer = {
+  todos: todoSlice.reducer,
+  selectedTodo: selectedTodoSlice.reducer,
+  counter: counterSlice.reducer
+};
+
+export default configureStore({
+  reducer
 });
