@@ -1,6 +1,12 @@
-import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  configureStore,
+  createSlice,
+  PayloadAction,
+  getDefaultMiddleware
+} from '@reduxjs/toolkit';
 import { v1 as uuid } from 'uuid';
 import { Todo } from './type';
+import logger from 'redux-logger';
 
 const todosInitialState: Todo[] = [
   {
@@ -91,8 +97,7 @@ const counterSlice = createSlice({
     [todoSlice.actions.create.type]: state => state + 1,
     [todoSlice.actions.edit.type]: state => state + 1,
     [todoSlice.actions.remove.type]: state => state + 1,
-    [todoSlice.actions.toggle.type]: state => state + 1,
-    [selectedTodoSlice.actions.select.type]: state => state + 1
+    [todoSlice.actions.toggle.type]: state => state + 1
   }
 });
 
@@ -111,6 +116,9 @@ const reducer = {
   counter: counterSlice.reducer
 };
 
+const middleware = [...getDefaultMiddleware(), logger];
+
 export default configureStore({
-  reducer
+  reducer,
+  middleware
 });

@@ -8,7 +8,7 @@ import React, {
 import { Todo, State } from "../type";
 import "./App.css";
 import { useDispatch, useSelector } from 'react-redux'
-import { createTodoActionCreator, editTodoActionCreator, toggleTodoActionCreator, deleteTodoActionCreator, selectTodoActionCreator } from '../redux-og' 
+import { createTodoActionCreator, editTodoActionCreator, toggleTodoActionCreator, deleteTodoActionCreator, selectTodoActionCreator } from '../redux-toolkit' 
 
 
 const App = function() {

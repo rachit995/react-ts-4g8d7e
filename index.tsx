@@ -3,7 +3,8 @@ import { render } from 'react-dom';
 import IApp from './src/App';
 import './style.css';
 import { Provider } from 'react-redux'
-import store from './src/redux-og'
+import store from './src/redux-toolkit'
+// import store from './src/redux-og'
 
 interface AppProps { }
 
