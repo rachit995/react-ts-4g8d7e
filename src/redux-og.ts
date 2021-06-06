@@ -187,7 +187,7 @@ const selectedTodoReducer = (state = 0, action: SelectTodoActionTypes) => {
   }
 };
 
-const counterReducer = (state: number = 0, action: TodoActionTypes) => {
+const counterReducer = (state: number = null, action: TodoActionTypes) => {
   switch (action.type) {
     case CREATE_TODO: {
       return state + 1;

@@ -9,6 +9,7 @@ import { Todo, State } from "../type";
 import "./App.css";
 import { useDispatch, useSelector } from 'react-redux'
 
+
 const App = function() {
   const dispatch = useDispatch()
   const todos = useSelector((state: State) => state.todos)
