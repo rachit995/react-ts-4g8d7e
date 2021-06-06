@@ -8,6 +8,7 @@ import React, {
 import { Todo, State } from "../type";
 import "./App.css";
 import { useDispatch, useSelector } from 'react-redux'
+import { createTodoActionCreator, editTodoActionCreator, toggleTodoActionCreator, deleteTodoActionCreator, selectTodoActionCreator } from '../redux-og' 
 
 
 const App = function() {
@@ -33,9 +34,21 @@ const App = function() {
 
   const handleCreateNewTodo = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    if (!newTodoInput.length) return
+    dispatch(
+      createTodoActionCreator({
+        desc: newTodoInput
+      })
+    )
   };
 
-  const handleSelectTodo = (todoId: string) => (): void => {};
+  const handleSelectTodo = (todoId: string) => (): void => {
+    dispatch(
+      selectTodoActionCreator({
+        id: todoId
+      })
+    )
+  };
 
   const handleEdit = (): void => {
     if (!selectedTodo) return;
@@ -52,6 +65,17 @@ const App = function() {
 
   const handleUpdate = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    if (!editTodoInput.length || !selectedTodoId) {
+      handleCancelUpdate(e)
+      return
+    }
+    dispatch(
+      editTodoActionCreator({
+        id: selectedTodoId,
+        desc: editTodoInput
+      })
+    )
+    handleCancelUpdate(e)
   };
 
   const handleCancelUpdate = (
@@ -64,10 +88,19 @@ const App = function() {
 
   const handleToggle = (): void => {
     if (!selectedTodoId || !selectedTodo) return;
+    dispatch(toggleTodoActionCreator({
+      id: selectedTodoId,
+      isComplete: !selectedTodo.isComplete
+    }))
   };
 
   const handleDelete = (): void => {
     if (!selectedTodoId) return;
+    dispatch(
+      deleteTodoActionCreator({
+        id: selectedTodoId
+      })
+    )
   };
 
   return (
